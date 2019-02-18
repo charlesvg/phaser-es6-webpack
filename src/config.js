@@ -3,4 +3,4 @@ export default {
   gameHeight: 400,
   localStorageName: 'phaseres6webpack',
   webfonts: ['Bangers']
-}
+};
