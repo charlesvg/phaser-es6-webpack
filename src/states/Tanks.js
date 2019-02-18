@@ -28,10 +28,28 @@ export default class extends Phaser.State {
     this.game.load.image('bullet', 'assets/games/tanks/bullet.png');
     this.game.load.image('earth', 'assets/games/tanks/scorched_earth.png');
     this.game.load.spritesheet('kaboom', 'assets/games/tanks/explosion.png', 64, 64, 23);
+    this.game.load.audio('sfx', 'assets/games/tanks/sfx/fx_mixdown.ogg');
   }
 
   create () {
-        //  Resize our game world to be a 2000 x 2000 square
+    this.fx = this.game.add.audio('sfx');
+    this.fx.allowMultiple = true;
+
+      // And this defines the markers.
+      // They consist of a key (for replaying), the time the sound starts and the duration, both given in seconds.
+      // You can also set the volume and loop state, although we don't use them in this example (see the docs)
+
+    this.fx.addMarker('alien death', 1, 1.0);
+    this.fx.addMarker('boss hit', 3, 0.5);
+    this.fx.addMarker('escape', 4, 3.2);
+    this.fx.addMarker('meow', 8, 0.5);
+    this.fx.addMarker('numkey', 9, 0.1);
+    this.fx.addMarker('ping', 10, 1.0);
+    this.fx.addMarker('death', 12, 4.2);
+    this.fx.addMarker('shot', 17, 1.0);
+    this.fx.addMarker('squit', 19, 0.3);
+
+    //  Resize our game world to be a 2000 x 2000 square
     this.game.world.setBounds(-1000, -1000, 2000, 2000);
 
         //  Our tiled scrolling background
@@ -194,6 +212,8 @@ export default class extends Phaser.State {
       bullet.reset(this.turret.x, this.turret.y);
 
       bullet.rotation = this.game.physics.arcade.moveToPointer(bullet, 1000, this.game.input.activePointer, 500);
+
+      this.fx.play('shot');
     }
   }
 
